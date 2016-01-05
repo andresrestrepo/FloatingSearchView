@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity implements
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.help:
-                System.out.println("Hola amigos");
                 mSearchView.setVisibility(View.VISIBLE);
                 mSearchView.setActivated(true);
                 return true;
