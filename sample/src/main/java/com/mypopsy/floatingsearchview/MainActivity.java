@@ -293,11 +293,11 @@ public class MainActivity extends AppCompatActivity implements
 
         public SuggestionViewHolder(final View itemView) {
             super(itemView);
-            left = (ImageView) itemView.findViewById(R.id.icon_start);
+            //left = (ImageView) itemView.findViewById(R.id.icon_start);
             right= (ImageView) itemView.findViewById(R.id.icon_end);
             text = (TextView) itemView.findViewById(R.id.text);
-            url = (TextView) itemView.findViewById(R.id.url);
-            left.setImageResource(R.drawable.ic_google);
+            //url = (TextView) itemView.findViewById(R.id.url);
+            //left.setImageResource(R.drawable.ic_google);
             itemView.findViewById(R.id.text_container)
                     .setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -315,8 +315,8 @@ public class MainActivity extends AppCompatActivity implements
 
         void bind(SearchResult result) {
             text.setText(Html.fromHtml(result.title));
-            url.setText(result.visibleUrl);
-            url.setVisibility(result.visibleUrl == null ? View.GONE : View.VISIBLE);
+            //url.setText(result.visibleUrl);
+            //url.setVisibility(result.visibleUrl == null ? View.GONE : View.VISIBLE);
         }
     }
 

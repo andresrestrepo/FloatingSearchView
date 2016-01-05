@@ -27,7 +27,7 @@
 
     <style name="textAppearanceSearchResultTitle" parent="TextAppearance.AppCompat.SearchResult.Title">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">?android:attr/textColorLink</item>
+        <item name="android:textColor">#000</item>
     </style>
 
     <style name="textAppearanceSearchResultSubTitle" parent="TextAppearance.AppCompat.SearchResult.Subtitle">

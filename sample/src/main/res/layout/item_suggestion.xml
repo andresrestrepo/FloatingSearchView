@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/icon.start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        style="@style/Widget.AppCompat.ActionButton"/>
+        style="@style/Widget.AppCompat.ActionButton"/>-->
 
     <LinearLayout
         android:id="@+id/text.container"
@@ -30,14 +30,6 @@
             android:layout_gravity="start|center_vertical"
             android:textAppearance="?android:attr/textAppearanceSearchResultTitle"
             android:background="?attr/selectableItemBackground"/>
-        <TextView
-            android:id="@+id/url"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"
-            android:layout_gravity="start|center_vertical"/>
     </LinearLayout>
 
     <ImageView
