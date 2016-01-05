@@ -18,6 +18,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements
 
         mSearchView = (FloatingSearchView) findViewById(R.id.search);
         mSearchView.setAdapter(mAdapter = new SearchAdapter());
-        mSearchView.showLogo(true);
+        mSearchView.showLogo(false);
         mSearchView.setItemAnimator(new CustomSuggestionItemAnimator(mSearchView));
 
         updateNavigationIcon(R.id.menu_icon_search);
@@ -78,13 +80,20 @@ public class MainActivity extends AppCompatActivity implements
             public void onNavigationClick() {
                 // toggle
                 mSearchView.setActivated(!mSearchView.isActivated());
+                if (mSearchView.isActivated()){
+                    mSearchView.setVisibility(View.VISIBLE);
+                }else{
+                    mSearchView.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
         mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSearchAction(CharSequence text) {
+                mSearchView.setVisibility(View.INVISIBLE);
                 mSearchView.setActivated(false);
+
             }
         });
 
@@ -126,6 +135,29 @@ public class MainActivity extends AppCompatActivity implements
         mSearchView.setText(null);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.help:
+                System.out.println("Hola amigos");
+                mSearchView.setVisibility(View.VISIBLE);
+                mSearchView.setActivated(true);
+                return true;
+            case R.id.aboutus:
+                Toast.makeText(getApplicationContext(), "The tipo and friends, Linkapedia", Toast.LENGTH_SHORT).show();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void search(String query) {
         showProgressBar(mSearchView.isActivated());
         mSearch.search(query);
@@ -139,12 +171,6 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.menu_icon_search:
                 drawable = new SearchArrowDrawable(context);
                 break;
-            case R.id.menu_icon_drawer:
-                drawable = new android.support.v7.graphics.drawable.DrawerArrowDrawable(context);
-                break;
-            case R.id.menu_icon_custom:
-                drawable = new CustomDrawable(context);
-                break;
         }
         drawable = DrawableCompat.wrap(drawable);
         DrawableCompat.setTint(drawable, ViewUtils.getThemeAttrColor(context, R.attr.colorControlNormal));
@@ -152,7 +178,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private boolean shouldShowNavigationIcon() {
-        return mSearchView.getMenu().findItem(R.id.menu_toggle_icon).isChecked();
+       //return mSearchView.getMenu().findItem(R.id.menu_toggle_icon).isChecked();
+        return true;
     }
 
     @Override
@@ -184,16 +211,8 @@ public class MainActivity extends AppCompatActivity implements
                 mSearchView.setText(null);
                 mSearchView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
                 break;
-            case R.id.menu_toggle_icon:
-                item.setChecked(!item.isChecked());
-                mSearchView.showIcon(item.isChecked());
-                break;
-            case R.id.menu_tts:
-                PackageUtils.startTextToSpeech(this, getString(R.string.speech_prompt), REQ_CODE_SPEECH_INPUT);
-                break;
+
             case R.id.menu_icon_search:
-            case R.id.menu_icon_drawer:
-            case R.id.menu_icon_custom:
                 updateNavigationIcon(item.getItemId());
                 Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
                 break;
@@ -222,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void onItemClick(SearchResult result) {
+        mSearchView.setVisibility(View.INVISIBLE);
         mSearchView.setActivated(false);
         if(!TextUtils.isEmpty(result.url)) PackageUtils.start(this, Uri.parse(result.url));
     }
@@ -233,10 +253,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private void showClearButton(boolean show) {
         mSearchView.getMenu().findItem(R.id.menu_clear).setVisible(show);
-    }
-
-    public void onGithubClick(View view) {
-        PackageUtils.start(this, Uri.parse(BuildConfig.PROJECT_URL));
     }
 
     private static SearchResult getErrorResult(Throwable throwable) {

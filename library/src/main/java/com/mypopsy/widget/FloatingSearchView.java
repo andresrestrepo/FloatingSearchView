@@ -148,6 +148,7 @@ public class FloatingSearchView extends RelativeLayout {
         mSearchContainer = (ViewGroup) findViewById(R.id.fsv_search_container);
         mActionMenu = (ActionMenuView) findViewById(R.id.fsv_search_action_menu);
 
+
         //TODO: move elevation parameters to XML attributes
         mSearchBackground = new RoundRectDrawableWithShadow(
                 DEFAULT_CONTENT_COLOR, ViewUtils.dpToPx(DEFAULT_RADIUS),
