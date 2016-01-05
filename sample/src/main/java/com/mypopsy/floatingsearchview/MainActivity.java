@@ -242,7 +242,15 @@ public class MainActivity extends AppCompatActivity implements
     private void onItemClick(SearchResult result) {
         mSearchView.setVisibility(View.INVISIBLE);
         mSearchView.setActivated(false);
-        if(!TextUtils.isEmpty(result.url)) PackageUtils.start(this, Uri.parse(result.url));
+        String url = "";
+
+        if(result.type.equals("blog")){
+            url = "http://media.linkapedia.com/blogs/" + result.name + "/" + result.id;
+        }else{
+            url = "http://www.linkapedia.com/topics/" + result.name + "/" + result.name + "/" + result.id;
+        }
+
+        if(!TextUtils.isEmpty(url)) PackageUtils.start(this, Uri.parse(url));
     }
 
 
@@ -314,7 +322,7 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         void bind(SearchResult result) {
-            text.setText(Html.fromHtml(result.title));
+            text.setText(Html.fromHtml(result.name));
             //url.setText(result.visibleUrl);
             //url.setVisibility(result.visibleUrl == null ? View.GONE : View.VISIBLE);
         }

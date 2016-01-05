@@ -8,8 +8,8 @@ import rx.Observable;
 // https://developers.google.com/web-search/docs/?csw=1#API_Overview
 public interface GoogleSearch {
 
-    String BASE_URL = "https://ajax.googleapis.com";
+    String BASE_URL = "http://linkapedia-api-release.elasticbeanstalk.com";
 
-    @GET("/ajax/services/search/web?v=1.0")
-    Observable<Response> search(@Query("q") String query);
+    @GET("/search/suggests?limit=7")
+    Observable<Response> search(@Query("term") String query);
 }

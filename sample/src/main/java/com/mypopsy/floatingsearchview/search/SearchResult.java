@@ -1,28 +1,51 @@
 package com.mypopsy.floatingsearchview.search;
 
 public class SearchResult {
-    public String visibleUrl;
-    public String url;
-    public String title;
-    public String content;
+    public String description;
+    public String name;
+    public String id;
 
-
-    public SearchResult(String title) {
-        this(title, null);
+    public String getId() {
+        return id;
     }
 
-    public SearchResult(String title, String content) {
-        this(title, content, null);
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public SearchResult(String title, String content, String url) {
-        this(title, content, url, url);
+    public String getType() {
+        return type;
     }
 
-    public SearchResult(String title, String content, String url, String visibleUrl) {
-        this.title = title;
-        this.content = content;
-        this.url = url;
-        this.visibleUrl = visibleUrl;
+    public void setType(String type) {
+        this.type = type;
     }
+
+    public String type;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public SearchResult(String name, String description){
+        this.name = name;
+        this.description = description;
+    }
+
+    public SearchResult(String error){
+        this.name = error;
+    }
+
 }

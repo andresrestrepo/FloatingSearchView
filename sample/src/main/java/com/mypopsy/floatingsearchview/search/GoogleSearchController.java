@@ -56,9 +56,9 @@ public class GoogleSearchController implements SearchController {
                 .flatMap(new Func1<Response, Observable<SearchResult[]>>() {
                     @Override
                     public Observable<SearchResult[]> call(Response response) {
-                        if (response.responseData == null)
-                            return Observable.error(new SearchException(response.responseDetails));
-                        return Observable.just(response.responseData.results);
+                        if (response.get_embedded() == null)
+                            return Observable.error(new SearchException("Failed to get results"));
+                        return Observable.just(response.get_embedded().getTopics());
                     }
                 })
                 .retry(new Func2<Integer, Throwable, Boolean>() {
